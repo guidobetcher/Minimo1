@@ -6,7 +6,7 @@ public class Usuarios {
     //Attributes
     String username;
 
-    LinkedList<Pedido> pedidos;
+    private LinkedList<Pedido> pedidos;
 
     public Usuarios(String username, LinkedList<Pedido> pedidos) {
         this.username = username;
@@ -21,7 +21,7 @@ public class Usuarios {
         this.username = username;
     }
 
-    public LinkedList<Pedido> getPedidos() {
-        return pedidos;
+    public LinkedList<Pedido> Pedidos() {
+        return this.pedidos;
     }
 }

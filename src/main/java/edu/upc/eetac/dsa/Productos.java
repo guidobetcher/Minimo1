@@ -1,6 +1,6 @@
 package edu.upc.eetac.dsa;
 
-public class Productos {
+public class Productos{
     //Atributes
     String name;
     double price;
