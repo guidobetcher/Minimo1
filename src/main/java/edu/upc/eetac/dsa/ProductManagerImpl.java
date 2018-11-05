@@ -17,7 +17,7 @@ public class ProductManagerImpl implements ProductManager{
     protected HashMap<String, Usuarios> usuarios;
 
     private ProductManagerImpl(){
-        this.productos = new List<Productos>();
+        this.productos = new ArrayList<>();
         this.pedidos = new LinkedList<>();
         this.usuarios = new HashMap<>();
     }
@@ -29,7 +29,7 @@ public class ProductManagerImpl implements ProductManager{
 
     public List<Productos> getAllProductsSortedByPrice(){
         //We create a copy of the list
-        List<Productos> ret = this.productos;
+        List<Productos> ret = new ArrayList<>();
         ret.addAll(this.productos);
 
         //We have to tell to the sort method, which criteria we want to apply
@@ -46,7 +46,7 @@ public class ProductManagerImpl implements ProductManager{
 
     public List<Productos> getAllProductsSortedByNumberOfSales(){
         //We create a copy of the list
-        List<Productos> ret = this.productos;
+        List<Productos> ret = new ArrayList<>();
         ret.addAll(this.productos);
 
         //We have to tell to the sort method, which criteria we want to apply
@@ -77,7 +77,20 @@ public class ProductManagerImpl implements ProductManager{
     }
 
     public void placeAnOrder(String user, Pedido p){
-        LinkedList<Pedido> pedidos = null;
+        //We want to know if the user exists or not
+        Usuarios theUser = this.usuarios.get(user);
+        LinkedList<Pedido> ret = theUser.Pedidos();
+
+        if(theUser!=null){
+            ret.add(p);
+        }
+        else{
+            this.usuarios.put(user, new Usuarios(user, theUser.Pedidos()));
+            ret.add(p);
+        }
+
+        double quantity =
+        /*LinkedList<Pedido> pedidos = null;
         Usuarios theUser = this.usuarios.get(user);
 
         if(theUser!=null){
@@ -87,7 +100,7 @@ public class ProductManagerImpl implements ProductManager{
         else{
             this.usuarios.put(user, new Usuarios(user, this.pedidos));
             pedidos.add(p);
-        }
+        }*/
 
     }
     public void serveAnOrder(){

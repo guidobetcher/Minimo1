@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Pedido {
     //Attributes
-    List<Productos> products;
+    private List<Productos> products;
     int quantity;
 
     public Pedido(List<Productos> products, int quantity) {
@@ -12,12 +12,8 @@ public class Pedido {
         this.quantity = quantity;
     }
 
-    public List<Productos> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Productos> products) {
-        this.products = products;
+    public List<Productos> Products() {
+        return this.products;
     }
 
     public int getQuantity() {
