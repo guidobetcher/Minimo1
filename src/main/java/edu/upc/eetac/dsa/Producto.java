@@ -1,15 +1,16 @@
 package edu.upc.eetac.dsa;
 
-public class Productos{
+public class Producto {
     //Atributes
     String name;
     double price;
-    int sales;
+    private int sales;
+    int quantity;
 
-    public Productos(String name, double price, int sales) {
+    public Producto(String name, double price, int quantity) {
         this.name = name;
         this.price = price;
-        this.sales = sales;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -32,7 +33,11 @@ public class Productos{
         return sales;
     }
 
-    public void setSales(int sales) {
-        this.sales = sales;
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

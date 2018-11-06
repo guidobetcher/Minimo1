@@ -4,23 +4,28 @@ import java.util.List;
 
 public class Pedido {
     //Attributes
-    private List<Productos> products;
-    int quantity;
+    private List<LProducto> products;
+    private Usuario usuario;
 
-    public Pedido(List<Productos> products, int quantity) {
+    public Pedido(List<LProducto> products) {
         this.products = products;
-        this.quantity = quantity;
     }
 
-    public List<Productos> Products() {
-        return this.products;
+    public List<LProducto> getProducts() {
+        return products;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setUser(Usuario theUser) {
+        this.usuario= theUser;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public Usuario getUser() {
+        return this.usuario;
+
+    }
+
+    protected class LProducto{
+        protected int q;
+        protected String producto;
     }
 }
