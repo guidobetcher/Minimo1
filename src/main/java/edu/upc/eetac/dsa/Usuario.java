@@ -8,6 +8,7 @@ public class Usuario {
 
     private LinkedList<Pedido> pedidos;
 
+    //In the constructor we only pass the username value, not the LinkedList pedidos
     public Usuario(String username) {
         this.username = username;
         this.pedidos = new LinkedList<Pedido>();
@@ -25,6 +26,7 @@ public class Usuario {
         return this.pedidos;
     }
 
+    //We add addOrder function in Usuario, because we need to know which order has the user made to serveAnOrder
     public void addOrder(Pedido p) {
         this.pedidos.add(p);
     }

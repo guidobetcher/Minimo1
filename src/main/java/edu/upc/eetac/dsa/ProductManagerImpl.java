@@ -66,7 +66,7 @@ public class ProductManagerImpl implements ProductManager{
     }
 
     public LinkedList<Pedido> getAllOrdersOfAUser(String user) throws UserNotFoundException{
-        LinkedList<Pedido> pedidos = null;
+        LinkedList<Pedido> pedidos;
 
         //We want to find the given user
         Usuario theUser = this.usuarios.get(user);
@@ -81,58 +81,62 @@ public class ProductManagerImpl implements ProductManager{
         }
 
         return pedidos;
-
     }
 
-    public void placeAnOrder(String user, Pedido p){
+    public void placeAnOrder(String user, Pedido p) throws UserNotFoundException{
         //We want to know if the user exists or not
         Usuario theUser = this.usuarios.get(user);
-        log.info("List before add new order: " + ret);
+        log.info("User: " +theUser);
 
         if(theUser!=null){
-             // throw ///
-        }
-        else{
+            //If the user exists we will say who place this order with setUser, and then we add this order to the LinkedList this.pedidos
             p.setUser(theUser);
             this.pedidos.add(p);
         }
+        else{
+            //If it doesn't exist we will throw an error and we will show the value of theUser with a log.error
+            log.error("User not found: " + theUser);
+            throw new UserNotFoundException();
+        }
 
         log.info("List after add new order: " + ret);
-
-        /*LinkedList<Pedido> pedidos = null;
-        Usuario theUser = this.usuarios.get(user);
-
-        if(theUser!=null){
-            pedidos = theUser.pedidos();
-            pedidos.add(p);
-        }
-        else{
-            this.usuarios.put(user, new Usuario(user, this.pedidos));
-            pedidos.add(p);
-        }*/
-
     }
     public Pedido serveAnOrder(){
+        //To serve an order we want to delete this order in the LinkedList of this.pedidos with pop()
         Pedido p = this.pedidos.pop();
+        log.info("Order served: " +p);
 
+        //We need to process this order, which means that we need to increment the sales of the product
         process(p);
 
+        //We will get the user user who made this order, and then we will add this order to the history of orders of this user
         Usuario usuario = p.getUser();
         usuario.addOrder(p);
 
         return p;
-
     }
 
     private void process(Pedido p) {
+        //When we process and order, we have to go across the List of LProducto (function that exists in Pedido's class)
+        //For that reason we create an auxiliary List called "l"
         List<Pedido.LProducto> l = p.getProducts();
         Producto producto;
         int q;
 
+        //For every line (which means for every product, regardless it repeats) we increment the total number of sales
         for (Pedido.LProducto lp: l) {
-       //     producto = this.getProducto(lp.producto);
-        //    producto.addSales(lp.q);
+           /*producto = this.getProducto(lp.producto);
+           producto.addSales(lp.q);*/
         }
     }
+
+    //Private method to return the product given its name (String producto)
+    /*private Producto getProducto(String producto) {
+        for(Pedido.LProducto lp: ){
+            if(lp.producto.equals(producto)){
+                Producto p =
+            }
+        }
+    }*/
 
 }
