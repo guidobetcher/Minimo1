@@ -5,7 +5,7 @@ import java.util.List;
 public class Pedido {
     //Attributes
     private List<LProducto> products;
-    private Usuario user;
+    protected Usuario user;
 
     public Pedido(List<LProducto> products) {
         this.products = products;
@@ -26,15 +26,20 @@ public class Pedido {
 
     //Each field of products List has the name of the product and the quantity. A tuple of two fields (columns)
     //For that reason we create an inner class, which is protected
-
-    protected static class LProducto{
+    protected static class LProducto {
         protected int q;
         protected String producto;
 
+        @Override
+        public String toString() {
+            return "Pedido [Name=" + producto + ", Cantidad=" + q +"]";
+        }
+
+
         /*public LProducto(int q, String producto) {
             this.q = q;
-            this.producto = producto;
-        }*/
-    }
+            this.producto = producto;*/
+        }
+
 
 }

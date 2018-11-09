@@ -11,7 +11,7 @@ public class Usuario {
     //In the constructor we only pass the username value, not the LinkedList pedidos
     public Usuario(String username) {
         this.username = username;
-        this.pedidos = new LinkedList<Pedido>();
+        this.pedidos = new LinkedList<>();
     }
 
     public String getUsername() {

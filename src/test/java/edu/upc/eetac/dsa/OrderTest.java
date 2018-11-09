@@ -17,98 +17,88 @@ public class OrderTest {
     final static Logger log = Logger.getLogger(OrderTest.class.getName());
 
     //We have to create and object of type ProductManager, for then use its methods
-    private ProductManager pm;
+    ProductManager pm;
 
-    private Usuario u1, u2;
+    Usuario u1, u2;
 
-    private Producto producto;
+    Producto producto1, producto2, producto3, producto4, producto5, producto6;
 
-    private Pedido pedido1, pedido2, pedido3;
+    Pedido pedido1, pedido2, pedido3;
 
-    private List<Pedido.LProducto> lp1, lp2, lp3;
-
-    private HashMap<String, Usuario> usuarios;
+    List<Pedido.LProducto> lp1, lp2, lp3;
 
     //Before the tests we have to add Users and some orders
     @Before
     public void setUp(){
         //Because ProductManagerImpl implements ProductManager, we can create on top of pm, new ProductManagerImpl
-        this.pm = ProductManagerImpl.getInstance();
+        pm = ProductManagerImpl.getInstance();
         lp1 = new ArrayList<>();
         lp2 = new ArrayList<>();
         lp3 = new ArrayList<>();
-        usuarios = new HashMap<>();
+
         //We create the products
-        producto = new Producto("Manzana",1.5);
-        producto = new Producto("Pastel",10);
-        producto = new Producto("Cerveza",2.5);
-        producto = new Producto("Calamares",5);
-        producto = new Producto("Patatas",4);
-        producto = new Producto("Fanta",2);
-
-        //Place new orders
-        Pedido.LProducto l1 = new Pedido.LProducto();
-        l1.producto = "Manzana";
-        l1.q = 3;
-        Pedido.LProducto l2 = new Pedido.LProducto();
-        l2.producto = "Pastel";
-        l2.q = 5;
-        lp1.add(l1);
-        lp1.add(l2);
-        pedido1 = new Pedido(lp1);
-        u1 = new Usuario("Pepe");
-        u1.addOrder(pedido1);
-
-        Pedido.LProducto l3 = new Pedido.LProducto();
-        l3.producto = "Cerveza";
-        l3.q = 3;
-        Pedido.LProducto l4 = new Pedido.LProducto();
-        l4.producto = "Calamares";
-        l4.q = 5;
-        lp2.add(l3);
-        lp2.add(l4);
-        pedido2 = new Pedido(lp2);
-        u1.addOrder(pedido2);
-
-        Pedido.LProducto l5 = new Pedido.LProducto();
-        l5.producto = "Patatas";
-        l5.q = 3;
-        Pedido.LProducto l6 = new Pedido.LProducto();
-        l6.producto = "Fanta";
-        l6.q = 5;
-        lp3.add(l1);
-        lp3.add(l2);
-        pedido3 = new Pedido(lp3);
-        u2 = new Usuario("Juan");
-        u2.addOrder(pedido3);
+        producto1 = new Producto("Manzana",1.5);
+        producto2 = new Producto("Pastel",10);
+        producto3 = new Producto("Cerveza",2.5);
+        producto4 = new Producto("Calamares",5);
+        producto5 = new Producto("Patatas",4);
+        producto6 = new Producto("Fanta",2);
+        pm.addProducto(producto1);
+        pm.addProducto(producto2);
+        pm.addProducto(producto3);
+        pm.addProducto(producto4);
+        pm.addProducto(producto5);
+        pm.addProducto(producto6);
 
         //Create the list of users
-        usuarios.put("Pepe", u1);
-        usuarios.put("Juan", u2);
-        usuarios.put("Carla", new Usuario("Carla"));
-        usuarios.put("Sara", new Usuario("Sara"));
+        pm.addUser("Pepe");
+        pm.addUser("Juan");
+        pm.addUser("Carla");
+        pm.addUser("Paula");
     }
 
     //When the test ends, it's properly to erase the contents added in @Before
     @After
     public void tearDown(){
-        this.pm = null;
+        pm = null;
     }
 
-    //We verify if we place an order properly
     @Test
-    public void placeAnOrder() {
-        Pedido.LProducto l1 = new Pedido.LProducto();
-        l1.producto = "Manzana";
-        l1.q = 4;
-        Pedido.LProducto l2 = new Pedido.LProducto();
-        l2.producto = "Pastel";
-        l2.q = 9;
-        lp1.add(l1);
-        lp1.add(l2);
-        Pedido pedido = new Pedido(lp1);
+    public void placeAnOrder(){
+        try {
+            //Place new orders
+            Pedido.LProducto l1 = new Pedido.LProducto();
+            l1.producto = "Manzana";
+            l1.q = 3;
+            Pedido.LProducto l2 = new Pedido.LProducto();
+            l2.producto = "Pastel";
+            l2.q = 5;
+            lp1.add(l1);
+            lp1.add(l2);
+            pedido1 = new Pedido(lp1);
+            pm.placeAnOrder("Pepe", pedido1);
+        }
+        catch (UserNotFoundException e){
+            log.error("EL usuario no existe en la lista " +e.getMessage());
+        }
+    }
 
-        u1.addOrder(pedido);
+    @Test
+    public void serveAnOrder(){
+        pedido1 = this.pm.serveAnOrder();
+    }
+
+    @Test
+    public void getOrdersSortedByPrice(){
+        List<Producto> ret = this.pm.getAllProductsSortedByPrice();
+
+        assertEquals(ret.get(0).name, "Manzana", "Manzana");
+        assertEquals(ret.get(1).name, "Fanta", "Fanta");
+        assertEquals(ret.get(2).name, "Cerveza", "Cerveza");
+        assertEquals(ret.get(3).name, "Patatas", "Patatas");
+        assertEquals(ret.get(4).name, "Calamares", "Calamares");
+        assertEquals(ret.get(5).name, "Pastel", "Pastel");
+
     }
 
     @Test
@@ -116,9 +106,8 @@ public class OrderTest {
         try {
             LinkedList<Pedido> l = this.pm.getAllOrdersOfAUser("Pepe");
 
-            assertEquals(l.get(0), "Manzana");
-            assertEquals(l.get(1), "Pastel");
-            assertEquals(l.get(2), "Cerveza");
+
+
         }
         catch(UserNotFoundException e){
             log.warn("El usuario del cual intenta visualizar su historial de pedidos NO existe en la lista! " +e.getMessage());

@@ -4,8 +4,6 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
-import static com.sun.tools.javac.jvm.ByteCodes.ret;
-
 public class ProductManagerImpl implements ProductManager{
     //We call the log4j properties file
     final static Logger log = Logger.getLogger(ProductManagerImpl.class.getName());
@@ -13,20 +11,40 @@ public class ProductManagerImpl implements ProductManager{
     //We implement the façade using a Singleton pattern
     private static ProductManager instance;
 
-    protected List<Producto> productos;
-    protected LinkedList<Pedido> pedidos;
+    private List<Producto> productos;
+    private LinkedList<Pedido> pedidos;
     //Initialize the hashmap(key: string; value: Usuario) of users
-    protected HashMap<String, Usuario> usuarios;
+    private HashMap<String, Usuario> usuarios;
 
     private ProductManagerImpl(){
-        this.productos = new ArrayList<>();
-        this.pedidos = new LinkedList<>();
-        this.usuarios = new HashMap<>();
+        productos = new ArrayList<>();
+        pedidos = new LinkedList<>();
+        usuarios = new HashMap<>();
     }
 
     public static ProductManager getInstance(){
         if(instance==null) instance = new ProductManagerImpl();
         return instance;
+    }
+
+    public int size(){
+        return this.pedidos.size();
+    }
+
+    public void addUser(String user){
+        usuarios.put(user, new Usuario(user));
+    }
+
+    public void addProducto(Producto p){
+        this.productos.add(p);
+        p.addProducto(p);
+    }
+
+    public List<Producto> allProducts(){
+        List<Producto> ret = new ArrayList<>();
+        ret.addAll(this.productos);
+
+        return ret;
     }
 
     public List<Producto> getAllProductsSortedByPrice(){
@@ -76,10 +94,8 @@ public class ProductManagerImpl implements ProductManager{
             pedidos = theUser.pedidos();
         }
         else {
-            log.error("User not found: " + theUser);
             throw new UserNotFoundException();
         }
-
         return pedidos;
     }
 
@@ -95,11 +111,9 @@ public class ProductManagerImpl implements ProductManager{
         }
         else{
             //If it doesn't exist we will throw an error and we will show the value of theUser with a log.error
-            log.error("User not found: " + theUser);
             throw new UserNotFoundException();
         }
 
-        log.info("List after add new order: " + ret);
     }
     public Pedido serveAnOrder(){
         //To serve an order we want to delete this order in the LinkedList of this.pedidos with pop()
@@ -124,15 +138,15 @@ public class ProductManagerImpl implements ProductManager{
         int q;
 
         //For every line (which means for every product, regardless it repeats) we increment the total number of sales
-        for (Pedido.LProducto lp: l) {
-           /*producto = this.getProducto(lp.producto);
-           producto.addSales(lp.q);*/
-        }
+        /*for (Pedido.LProducto lp: l) {
+           producto = this.getProducto(lp.producto);
+           producto.addSales(lp.q);
+        }*/
     }
 
     //Private method to return the product given its name (String producto)
     /*private Producto getProducto(String producto) {
-        for(Pedido.LProducto lp: ){
+        for(Pedido.LProducto lp) {
             if(lp.producto.equals(producto)){
                 Producto p =
             }
