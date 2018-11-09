@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
@@ -19,16 +20,38 @@ public class OrdersService {
 
     private ProductManager pm;
 
-    public OrdersService(){
+    List<Pedido.LProducto> lp1, lp2, lp3;
+
+    final static Logger log = Logger.getLogger(OrdersService.class.getName());
+
+    public OrdersService() throws UserNotFoundException {
         this.pm = ProductManagerImpl.getInstance();
         if(pm.size()==0){
-            Producto p1 = new Producto("Manzana", 1);
-            Producto p2 = new Producto("Cerveza", 3);
-            Producto p3 = new Producto("Fanta", 2.5);
+            lp1 = new ArrayList<>();
+            lp2 = new ArrayList<>();
+            lp3 = new ArrayList<>();
+            Producto producto1 = new Producto("Manzana",1.5);
+            Producto producto2 = new Producto("Pastel",10);
+            Producto producto3 = new Producto("Cerveza",2.5);
+            Producto producto4 = new Producto("Calamares",5);
+            pm.addProducto(producto1);
+            pm.addProducto(producto2);
+            pm.addProducto(producto3);
+            pm.addProducto(producto4);
             pm.addUser("Pepe");
-            pm.addProducto(p1);
-            pm.addProducto(p2);
-            pm.addProducto(p3);
+            pm.addUser("Juan");
+            pm.addUser("Carla");
+            pm.addUser("Paula");
+            Pedido.LProducto l1 = new Pedido.LProducto();
+            l1.producto = "Manzana";
+            l1.q = 3;
+            Pedido.LProducto l2 = new Pedido.LProducto();
+            l2.producto = "Pastel";
+            l2.q = 5;
+            lp1.add(l1);
+            lp1.add(l2);
+            Pedido pedido1 = new Pedido(lp1);
+            pm.placeAnOrder("Pepe", pedido1);
         }
     }
 

@@ -26,9 +26,9 @@ public class Pedido {
 
     //Each field of products List has the name of the product and the quantity. A tuple of two fields (columns)
     //For that reason we create an inner class, which is protected
-    protected static class LProducto {
-        protected int q;
-        protected String producto;
+    public static class LProducto {
+        public int q;
+        public String producto;
 
         @Override
         public String toString() {

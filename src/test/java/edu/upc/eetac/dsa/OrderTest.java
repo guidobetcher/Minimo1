@@ -36,20 +36,6 @@ public class OrderTest {
         lp2 = new ArrayList<>();
         lp3 = new ArrayList<>();
 
-        //We create the products
-        producto1 = new Producto("Manzana",1.5);
-        producto2 = new Producto("Pastel",10);
-        producto3 = new Producto("Cerveza",2.5);
-        producto4 = new Producto("Calamares",5);
-        producto5 = new Producto("Patatas",4);
-        producto6 = new Producto("Fanta",2);
-        pm.addProducto(producto1);
-        pm.addProducto(producto2);
-        pm.addProducto(producto3);
-        pm.addProducto(producto4);
-        pm.addProducto(producto5);
-        pm.addProducto(producto6);
-
         //Create the list of users
         pm.addUser("Pepe");
         pm.addUser("Juan");
@@ -90,14 +76,25 @@ public class OrderTest {
 
     @Test
     public void getOrdersSortedByPrice(){
+        //We create the products
+        producto1 = new Producto("Manzana",1.5);
+        producto2 = new Producto("Pastel",10);
+        producto3 = new Producto("Cerveza",2.5);
+        producto4 = new Producto("Calamares",5);
+        producto5 = new Producto("Chocolate", 3.2);
+        pm.addProducto(producto1);
+        pm.addProducto(producto2);
+        pm.addProducto(producto3);
+        pm.addProducto(producto4);
+        pm.addProducto(producto5);
+
         List<Producto> ret = this.pm.getAllProductsSortedByPrice();
 
         assertEquals(ret.get(0).name, "Manzana", "Manzana");
-        assertEquals(ret.get(1).name, "Fanta", "Fanta");
-        assertEquals(ret.get(2).name, "Cerveza", "Cerveza");
-        assertEquals(ret.get(3).name, "Patatas", "Patatas");
-        assertEquals(ret.get(4).name, "Calamares", "Calamares");
-        assertEquals(ret.get(5).name, "Pastel", "Pastel");
+        assertEquals(ret.get(1).name, "Cerveza", "Cerveza");
+        assertEquals(ret.get(2).name, "Chocolate", "Chocolate");
+        assertEquals(ret.get(3).name, "Calamares", "Calamares");
+        assertEquals(ret.get(4).name, "Pastel", "Pastel");
 
     }
 

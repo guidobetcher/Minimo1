@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
+import static java.util.Collections.sort;
+
 public class ProductManagerImpl implements ProductManager{
     //We call the log4j properties file
     final static Logger log = Logger.getLogger(ProductManagerImpl.class.getName());
@@ -28,7 +30,8 @@ public class ProductManagerImpl implements ProductManager{
     }
 
     public int size(){
-        return this.pedidos.size();
+        log.info("Tamaño: " + this.productos.size());
+        return this.productos.size();
     }
 
     public void addUser(String user){
@@ -37,7 +40,6 @@ public class ProductManagerImpl implements ProductManager{
 
     public void addProducto(Producto p){
         this.productos.add(p);
-        p.addProducto(p);
     }
 
     public List<Producto> allProducts(){
