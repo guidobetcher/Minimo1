@@ -31,6 +31,7 @@ public class OrdersService {
             pm.addProducto(producto2);
             pm.addProducto(producto3);
             pm.addProducto(producto4);
+            pm.addUser("Pepe");
         }
     }
 
@@ -96,6 +97,24 @@ public class OrdersService {
         return Response.status(201).entity(entity).build();
     }
 
+    @POST
+    @ApiOperation(value = "place an Order", notes = "x")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "User not found")
+    })
+    @Path("/placeanorder/{user}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response placeAnOrder(@PathParam("user") String user, Pedido p){
+        try {
+            this.pm.placeAnOrder(user, p);
+            return Response.status(201).build();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            return Response.status(404).build();
+        }
+    }
+
     @DELETE
     @ApiOperation(value = "serve an Order", notes = "x")
     @ApiResponses(value = {
@@ -108,5 +127,7 @@ public class OrdersService {
 
         return Response.status(201).entity(pedido).build();
     }
+
+
 
 }
