@@ -6,7 +6,7 @@ public class Usuario {
     //Attributes
     String username;
 
-    private LinkedList<Pedido> pedidos;
+    LinkedList<Pedido> pedidos;
 
     //In the constructor we only pass the username value, not the LinkedList pedidos
     public Usuario(String username) {
@@ -30,4 +30,13 @@ public class Usuario {
     public void addOrder(Pedido p) {
         this.pedidos.add(p);
     }
+
+    /*@Override
+    public String toString() {
+        String s="";
+        for(int i=0; i<this.pedidos.size(); i++)
+        s = "Producto [Name = " + pedidos.get(0).products.get(i).producto+ ", Quantity = " + pedidos.get(0).products.get(i).q +"]";
+
+        return s;
+    }*/
 }

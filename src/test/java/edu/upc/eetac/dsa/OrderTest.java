@@ -41,41 +41,7 @@ public class OrderTest {
         pm.addUser("Juan");
         pm.addUser("Carla");
         pm.addUser("Paula");
-    }
 
-    //When the test ends, it's properly to erase the contents added in @Before
-    @After
-    public void tearDown(){
-        pm = null;
-    }
-
-    @Test
-    public void placeAnOrder(){
-        try {
-            //Place new orders
-            Pedido.LProducto l1 = new Pedido.LProducto();
-            l1.producto = "Manzana";
-            l1.q = 3;
-            Pedido.LProducto l2 = new Pedido.LProducto();
-            l2.producto = "Pastel";
-            l2.q = 5;
-            lp1.add(l1);
-            lp1.add(l2);
-            pedido1 = new Pedido(lp1);
-            pm.placeAnOrder("Pepe", pedido1);
-        }
-        catch (UserNotFoundException e){
-            log.error("EL usuario no existe en la lista " +e.getMessage());
-        }
-    }
-
-    @Test
-    public void serveAnOrder(){
-        pedido1 = this.pm.serveAnOrder();
-    }
-
-    @Test
-    public void getOrdersSortedByPrice(){
         //We create the products
         producto1 = new Producto("Manzana",1.5);
         producto2 = new Producto("Pastel",10);
@@ -87,7 +53,49 @@ public class OrderTest {
         pm.addProducto(producto3);
         pm.addProducto(producto4);
         pm.addProducto(producto5);
+    }
 
+    //When the test ends, it's properly to erase the contents added in @Before
+    @After
+    public void tearDown(){
+        pm = null;
+    }
+
+    @Test
+    public void placeAnOrder() throws ProductNotFoundException {
+        try {
+            //Place new orders
+            Pedido.LProducto l1 = new Pedido.LProducto();
+            l1.producto = "Manzana";
+            l1.q = 3;
+            Pedido.LProducto l2 = new Pedido.LProducto();
+            l2.producto = "Pastel";
+            l2.q = 5;
+            Pedido.LProducto l3 = new Pedido.LProducto();
+            l3.producto = "Pastel";
+            l3.q = 3;
+            lp1.add(l1);
+            lp1.add(l2);
+            lp1.add(l3);
+            pedido1 = new Pedido(lp1);
+            log.info("Pedido1: " +pedido1);
+            pm.placeAnOrder("Pepe", pedido1);
+        }
+        catch (UserNotFoundException e){
+            log.error("EL usuario no existe en la lista " +e.getMessage());
+        }
+    }
+
+    @Test
+    public void serveAnOrder(){
+        pedido1 = this.pm.serveAnOrder();
+
+        assertEquals(pedido1.products.get(0).producto, "Pastel", "Pastel");
+        assertEquals(pedido1.products.get(1).producto, "Manzana", "Manzana");
+    }
+
+    @Test
+    public void getOrdersSortedByPrice(){
         List<Producto> ret = this.pm.getAllProductsSortedByPrice();
 
         assertEquals(ret.get(0).name, "Manzana", "Manzana");
@@ -103,7 +111,8 @@ public class OrderTest {
         try {
             LinkedList<Pedido> l = this.pm.getAllOrdersOfAUser("Pepe");
 
-
+            /*assertEquals(l.get(0).products.get(0).producto, "Manzana", "Manzana");
+            assertEquals(l.get(0).products.get(1).producto, "Pastel", "Pastel");*/
 
         }
         catch(UserNotFoundException e){

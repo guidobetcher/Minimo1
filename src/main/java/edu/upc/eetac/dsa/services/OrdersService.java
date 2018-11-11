@@ -18,7 +18,11 @@ import java.util.List;
 @Path("/orders")
 public class OrdersService {
 
+    final static Logger log = Logger.getLogger(OrdersService.class.getName());
+
     private ProductManager pm;
+
+    private List<Pedido.LProducto> lp1;
 
     public OrdersService() throws UserNotFoundException {
         this.pm = ProductManagerImpl.getInstance();
@@ -61,6 +65,7 @@ public class OrdersService {
         List<Pedido> pedidos;
         try {
             pedidos = this.pm.getAllOrdersOfAUser(user);
+            log.info("Pedido: " +pedidos);
             GenericEntity<List<Pedido>> entity = new GenericEntity<List<Pedido>>(pedidos){};
             return Response.status(201).entity(entity).build();
         } catch (UserNotFoundException e) {
@@ -105,7 +110,7 @@ public class OrdersService {
     })
     @Path("/placeanorder/{user}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response placeAnOrder(@PathParam("user") String user, Pedido p){
+    public Response placeAnOrder(@PathParam("user") String user, Pedido p) throws ProductNotFoundException {
         try {
             this.pm.placeAnOrder(user, p);
             return Response.status(201).build();

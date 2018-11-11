@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Pedido {
     //Attributes
-    private List<LProducto> products;
-    protected Usuario user;
+    List<LProducto> products;
+    private Usuario user;
 
     public Pedido(List<LProducto> products) {
         this.products = products;
@@ -32,14 +32,10 @@ public class Pedido {
 
         @Override
         public String toString() {
-            return "Pedido [Name=" + producto + ", Quantity=" + q +"]";
+            return "Pedido [Name=" + producto + ", Quantity=" + q + "]";
         }
 
-
-        /*public LProducto(int q, String producto) {
-            this.q = q;
-            this.producto = producto;*/
-        }
+    }
 
 
 }

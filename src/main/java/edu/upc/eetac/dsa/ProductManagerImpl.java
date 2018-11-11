@@ -98,18 +98,22 @@ public class ProductManagerImpl implements ProductManager{
         else {
             throw new UserNotFoundException();
         }
+        log.info("Historial de pedidos: " +pedidos);
         return pedidos;
     }
 
-    public void placeAnOrder(String user, Pedido p) throws UserNotFoundException{
+    public void placeAnOrder(String user, Pedido p) throws UserNotFoundException, ProductNotFoundException{
         //We want to know if the user exists or not
         Usuario theUser = this.usuarios.get(user);
         log.info("User: " +theUser);
 
         if(theUser!=null){
+            //First we verify that product exists in the list of products
+
             //If the user exists we will say who place this order with setUser, and then we add this order to the LinkedList this.pedidos
             p.setUser(theUser);
             this.pedidos.add(p);
+            log.info("Lista this.pedidos :" +this.pedidos);
         }
         else{
             //If it doesn't exist we will throw an error and we will show the value of theUser with a log.error
@@ -127,6 +131,7 @@ public class ProductManagerImpl implements ProductManager{
 
         //We will get the user user who made this order, and then we will add this order to the history of orders of this user
         Usuario usuario = p.getUser();
+        log.info("Usuario: " +usuario);
         usuario.addOrder(p);
 
         return p;
@@ -140,19 +145,23 @@ public class ProductManagerImpl implements ProductManager{
         int q;
 
         //For every line (which means for every product, regardless it repeats) we increment the total number of sales
-        /*for (Pedido.LProducto lp: l) {
+        for (Pedido.LProducto lp: l) {
            producto = this.getProducto(lp.producto);
            producto.addSales(lp.q);
-        }*/
+           log.info("Ventas: " +producto.getSales());
+        }
     }
 
     //Private method to return the product given its name (String producto)
-    /*private Producto getProducto(String producto) {
-        for(Pedido.LProducto lp) {
-            if(lp.producto.equals(producto)){
-                Producto p =
+    private Producto getProducto(String producto) {
+        log.info("I'm in");
+        Producto p = null;
+        for(int i = 0; i< this.productos.size(); i++) {
+            if(producto.equals(this.productos.get(i).name)){
+                p = this.productos.get(i);
             }
         }
-    }*/
+        return p;
+    }
 
 }
