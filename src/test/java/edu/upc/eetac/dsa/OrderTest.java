@@ -77,9 +77,12 @@ public class OrderTest {
             lp1.add(l1);
             lp1.add(l2);
             lp1.add(l3);
+            lp2.add(l1);
             pedido1 = new Pedido(lp1);
+            pedido2 = new Pedido(lp2);
             log.info("Pedido1: " +pedido1);
             pm.placeAnOrder("Pepe", pedido1);
+            pm.placeAnOrder("Juan", pedido2);
         }
         catch (UserNotFoundException e){
             log.error("EL usuario no existe en la lista " +e.getMessage());
@@ -89,6 +92,7 @@ public class OrderTest {
     @Test
     public void serveAnOrder(){
         pedido1 = this.pm.serveAnOrder();
+        pedido2 = this.pm.serveAnOrder();
 
         assertEquals(pedido1.products.get(0).producto, "Pastel", "Pastel");
         assertEquals(pedido1.products.get(1).producto, "Manzana", "Manzana");
@@ -103,6 +107,18 @@ public class OrderTest {
         assertEquals(ret.get(2).name, "Chocolate", "Chocolate");
         assertEquals(ret.get(3).name, "Calamares", "Calamares");
         assertEquals(ret.get(4).name, "Pastel", "Pastel");
+
+    }
+
+    @Test
+    public void getOrdersSortedByNumberOfSales(){
+        List<Producto> ret = this.pm.getAllProductsSortedByNumberOfSales();
+
+        assertEquals(ret.get(0).name, "Pastel", "Pastel");
+        assertEquals(ret.get(1).name, "Manzana", "Manzana");
+        assertEquals(ret.get(2).name, "Chocolate", "Chocolate");
+        assertEquals(ret.get(3).name, "Calamares", "Calamares");
+        assertEquals(ret.get(4).name, "Cerveza", "Cerveza");
 
     }
 

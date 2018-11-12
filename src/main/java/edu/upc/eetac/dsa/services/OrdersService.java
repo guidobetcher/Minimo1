@@ -20,6 +20,8 @@ public class OrdersService {
 
     final static Logger log = Logger.getLogger(OrdersService.class.getName());
 
+    private Pedido pedido1;
+
     private ProductManager pm;
 
     private List<Pedido.LProducto> lp1;
@@ -36,6 +38,28 @@ public class OrdersService {
             pm.addProducto(producto3);
             pm.addProducto(producto4);
             pm.addUser("Pepe");
+
+            /*Pedido.LProducto l1 = new Pedido.LProducto();
+            l1.producto = "Manzana";
+            l1.q = 3;
+            Pedido.LProducto l2 = new Pedido.LProducto();
+            l2.producto = "Pastel";
+            l2.q = 5;
+            Pedido.LProducto l3 = new Pedido.LProducto();
+            l3.producto = "Pastel";
+            l3.q = 3;
+            lp1.add(l1);
+            lp1.add(l2);
+            lp1.add(l3);
+            pedido1 = new Pedido(lp1);
+            log.info("Pedido1: " +pedido1);
+            try {
+                pm.placeAnOrder("Pepe", pedido1);
+            } catch (ProductNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            pedido1 = this.pm.serveAnOrder();*/
         }
     }
 

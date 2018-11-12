@@ -121,6 +121,7 @@ public class ProductManagerImpl implements ProductManager{
         }
 
     }
+
     public Pedido serveAnOrder(){
         //To serve an order we want to delete this order in the LinkedList of this.pedidos with pop()
         Pedido p = this.pedidos.pop();
@@ -142,7 +143,6 @@ public class ProductManagerImpl implements ProductManager{
         //For that reason we create an auxiliary List called "l"
         List<Pedido.LProducto> l = p.getProducts();
         Producto producto;
-        int q;
 
         //For every line (which means for every product, regardless it repeats) we increment the total number of sales
         for (Pedido.LProducto lp: l) {
