@@ -1,5 +1,6 @@
 package edu.upc.eetac.dsa;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,5 +18,6 @@ public interface ProductManager {
     void addUser(String user);
     void addProducto(Producto p);
     List<Producto> allProducts();
+    HashMap<String, Usuario> allUsers();
     int size();
 }

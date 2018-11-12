@@ -47,6 +47,13 @@ public class ProductManagerImpl implements ProductManager{
         return ret;
     }
 
+    public HashMap<String, Usuario> allUsers(){
+        HashMap<String, Usuario> ret = new HashMap<>();
+        ret.putAll(this.usuarios);
+
+        return ret;
+    }
+
     public List<Producto> getAllProductsSortedByPrice(){
         //We create a copy of the list
         log.info("List before changes: " + this.productos);

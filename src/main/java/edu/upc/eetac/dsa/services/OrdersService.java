@@ -12,6 +12,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Api(value="/orders", description = "Endpoint to Order Service")
@@ -20,13 +21,9 @@ public class OrdersService {
 
     final static Logger log = Logger.getLogger(OrdersService.class.getName());
 
-    private Pedido pedido1;
-
     private ProductManager pm;
 
-    private List<LProducto> lp1;
-
-    public OrdersService() throws UserNotFoundException {
+    public OrdersService() {
         this.pm = ProductManagerImpl.getInstance();
         if(pm.size()==0){
             Producto producto1 = new Producto("Manzana",1.5);
@@ -52,6 +49,20 @@ public class OrdersService {
         List<Producto> productos  = this.pm.allProducts();
 
         GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productos){};
+        return Response.status(201).entity(entity).build();
+    }
+
+    @GET
+    @ApiOperation(value = "get all users in the list", notes = "x")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Usuario.class, responseContainer = "List of Users")
+    })
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers() {
+        HashMap<String, Usuario> users  = this.pm.allUsers();
+
+        GenericEntity<HashMap<String, Usuario>> entity = new GenericEntity<HashMap<String, Usuario>>(users){};
         return Response.status(201).entity(entity).build();
     }
 
@@ -138,6 +149,30 @@ public class OrdersService {
         return Response.status(201).entity(pedido).build();
     }
 
+    @POST
+    @ApiOperation(value = "add Product", notes = "x")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful")
+    })
+    @Path("/addproduct")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addProduct(Producto p){
+        pm.addProducto(p);
 
+        return Response.status(201).build();
+    }
+
+    @POST
+    @ApiOperation(value = "add User", notes = "x")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful")
+    })
+    @Path("/adduser/{user}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addProduct(@PathParam("user") String u){
+        pm.addUser(u);
+
+        return Response.status(201).build();
+    }
 
 }

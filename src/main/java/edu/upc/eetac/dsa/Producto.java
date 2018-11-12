@@ -1,10 +1,17 @@
 package edu.upc.eetac.dsa;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Producto{
     //Atributes
     String name;
     double price;
+    @JsonIgnore
     private int sales = 0;
+
+    public Producto(){
+
+    }
 
     public Producto(String name, double price) {
         this.name = name;
