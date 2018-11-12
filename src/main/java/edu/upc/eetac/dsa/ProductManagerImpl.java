@@ -4,8 +4,6 @@ import java.util.*;
 
 import org.apache.log4j.Logger;
 
-import static java.util.Collections.sort;
-
 public class ProductManagerImpl implements ProductManager{
     //We call the log4j properties file
     final static Logger log = Logger.getLogger(ProductManagerImpl.class.getName());
@@ -93,16 +91,16 @@ public class ProductManagerImpl implements ProductManager{
 
         if(theUser!=null){
             log.info("User: " + theUser);
-            pedidos = theUser.pedidos();
+            pedidos = theUser.getPedidos();
         }
         else {
             throw new UserNotFoundException();
         }
-        log.info("Historial de pedidos: " +pedidos);
+        log.info("Historial de getPedidos: " +pedidos);
         return pedidos;
     }
 
-    public void placeAnOrder(String user, Pedido p) throws UserNotFoundException, ProductNotFoundException{
+    public void placeAnOrder(String user, Pedido p) throws UserNotFoundException{
         //We want to know if the user exists or not
         Usuario theUser = this.usuarios.get(user);
         log.info("User: " +theUser);
@@ -110,10 +108,10 @@ public class ProductManagerImpl implements ProductManager{
         if(theUser!=null){
             //First we verify that product exists in the list of products
 
-            //If the user exists we will say who place this order with setUser, and then we add this order to the LinkedList this.pedidos
+            //If the user exists we will say who place this order with setUser, and then we add this order to the LinkedList this.getPedidos
             p.setUser(theUser);
             this.pedidos.add(p);
-            log.info("Lista this.pedidos :" +this.pedidos);
+            log.info("Lista this.getPedidos :" +this.pedidos);
         }
         else{
             //If it doesn't exist we will throw an error and we will show the value of theUser with a log.error
@@ -123,7 +121,7 @@ public class ProductManagerImpl implements ProductManager{
     }
 
     public Pedido serveAnOrder(){
-        //To serve an order we want to delete this order in the LinkedList of this.pedidos with pop()
+        //To serve an order we want to delete this order in the LinkedList of this.getPedidos with pop()
         Pedido p = this.pedidos.pop();
         log.info("Order served: " +p);
 
@@ -141,11 +139,11 @@ public class ProductManagerImpl implements ProductManager{
     private void process(Pedido p) {
         //When we process and order, we have to go across the List of LProducto (function that exists in Pedido's class)
         //For that reason we create an auxiliary List called "l"
-        List<Pedido.LProducto> l = p.getProducts();
+        List<LProducto> l = p.getProducts();
         Producto producto;
 
         //For every line (which means for every product, regardless it repeats) we increment the total number of sales
-        for (Pedido.LProducto lp: l) {
+        for (LProducto lp: l) {
            producto = this.getProducto(lp.producto);
            producto.addSales(lp.q);
            log.info("Ventas: " +producto.getSales());

@@ -1,9 +1,7 @@
 package edu.upc.eetac.dsa;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,19 +15,19 @@ public class OrderTest {
     final static Logger log = Logger.getLogger(OrderTest.class.getName());
 
     //We have to create and object of type ProductManager, for then use its methods
-    ProductManager pm;
+    static ProductManager pm;
 
-    Usuario u1, u2;
+    static Usuario u1, u2;
 
-    Producto producto1, producto2, producto3, producto4, producto5, producto6;
+    static Producto producto1, producto2, producto3, producto4, producto5, producto6;
 
-    Pedido pedido1, pedido2, pedido3;
+    static Pedido pedido1, pedido2, pedido3;
 
-    List<Pedido.LProducto> lp1, lp2, lp3;
+    static List<LProducto> lp1, lp2, lp3;
 
     //Before the tests we have to add Users and some orders
-    @Before
-    public void setUp(){
+    @BeforeClass
+    public static void setUp(){
         //Because ProductManagerImpl implements ProductManager, we can create on top of pm, new ProductManagerImpl
         pm = ProductManagerImpl.getInstance();
         lp1 = new ArrayList<>();
@@ -56,8 +54,8 @@ public class OrderTest {
     }
 
     //When the test ends, it's properly to erase the contents added in @Before
-    @After
-    public void tearDown(){
+    @AfterClass
+    public static void tearDown(){
         pm = null;
     }
 
@@ -65,13 +63,13 @@ public class OrderTest {
     public void placeAnOrder() throws ProductNotFoundException {
         try {
             //Place new orders
-            Pedido.LProducto l1 = new Pedido.LProducto();
+            LProducto l1 = new LProducto();
             l1.producto = "Manzana";
             l1.q = 3;
-            Pedido.LProducto l2 = new Pedido.LProducto();
+            LProducto l2 = new LProducto();
             l2.producto = "Pastel";
             l2.q = 5;
-            Pedido.LProducto l3 = new Pedido.LProducto();
+            LProducto l3 = new LProducto();
             l3.producto = "Pastel";
             l3.q = 3;
             lp1.add(l1);
@@ -132,7 +130,7 @@ public class OrderTest {
 
         }
         catch(UserNotFoundException e){
-            log.warn("El usuario del cual intenta visualizar su historial de pedidos NO existe en la lista! " +e.getMessage());
+            log.warn("El usuario del cual intenta visualizar su historial de getPedidos NO existe en la lista! " +e.getMessage());
         }
     }
 

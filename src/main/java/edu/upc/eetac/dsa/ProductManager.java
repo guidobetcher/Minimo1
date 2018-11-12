@@ -7,7 +7,7 @@ public interface ProductManager {
     //Methods
     //Ascending order
     List<Producto> getAllProductsSortedByPrice();
-    void placeAnOrder(String user, Pedido p) throws UserNotFoundException, ProductNotFoundException;
+    void placeAnOrder(String user, Pedido p) throws UserNotFoundException;
     Pedido serveAnOrder();
     LinkedList<Pedido> getAllOrdersOfAUser(String user) throws UserNotFoundException;
     //Descending order

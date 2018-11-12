@@ -24,7 +24,7 @@ public class OrdersService {
 
     private ProductManager pm;
 
-    private List<Pedido.LProducto> lp1;
+    private List<LProducto> lp1;
 
     public OrdersService() throws UserNotFoundException {
         this.pm = ProductManagerImpl.getInstance();
@@ -38,28 +38,6 @@ public class OrdersService {
             pm.addProducto(producto3);
             pm.addProducto(producto4);
             pm.addUser("Pepe");
-
-            /*Pedido.LProducto l1 = new Pedido.LProducto();
-            l1.producto = "Manzana";
-            l1.q = 3;
-            Pedido.LProducto l2 = new Pedido.LProducto();
-            l2.producto = "Pastel";
-            l2.q = 5;
-            Pedido.LProducto l3 = new Pedido.LProducto();
-            l3.producto = "Pastel";
-            l3.q = 3;
-            lp1.add(l1);
-            lp1.add(l2);
-            lp1.add(l3);
-            pedido1 = new Pedido(lp1);
-            log.info("Pedido1: " +pedido1);
-            try {
-                pm.placeAnOrder("Pepe", pedido1);
-            } catch (ProductNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            pedido1 = this.pm.serveAnOrder();*/
         }
     }
 
@@ -132,11 +110,14 @@ public class OrdersService {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "User not found")
     })
-    @Path("/placeanorder/{user}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response placeAnOrder(@PathParam("user") String user, Pedido p) throws ProductNotFoundException {
+    @Path("/placeanorder")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response placeAnOrder(Pedido p) throws ProductNotFoundException {
+
+        String userName = p.getUser().getUsername();
+
         try {
-            this.pm.placeAnOrder(user, p);
+            this.pm.placeAnOrder(userName, p);
             return Response.status(201).build();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
@@ -150,7 +131,7 @@ public class OrdersService {
             @ApiResponse(code = 201, message = "Successful", response = Pedido.class, responseContainer = "Pedido")
     })
     @Path("/serveanorder")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response serveAnOrder(){
         Pedido pedido = this.pm.serveAnOrder();
 
