@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e9a3cb3-30d0-4c35-9c39-f82558e64da8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManagerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Objeto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/util/RandomUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/upc/eetac/dsa/UsuarioTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/LProducto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Pedido.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/ProductManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/ProductManagerImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Producto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/upc/eetac/dsa/OrderTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/services/OrdersService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/services/OrdersService.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -148,8 +134,16 @@
       <workItem from="1573640131064" duration="610000" />
       <workItem from="1573672977026" duration="185000" />
       <workItem from="1573678476876" duration="100000" />
-      <workItem from="1573726435426" duration="9073000" />
+      <workItem from="1573726435426" duration="9737000" />
     </task>
+    <task id="LOCAL-00001" summary="Minimo1">
+      <created>1573735952100</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1573735952101</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -199,6 +193,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Minimo1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minimo1" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
