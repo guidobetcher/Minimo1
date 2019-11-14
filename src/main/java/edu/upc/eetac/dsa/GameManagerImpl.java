@@ -2,6 +2,7 @@ package edu.upc.eetac.dsa;
 
 import org.apache.log4j.Logger;
 
+import javax.swing.*;
 import java.util.*;
 
 public class GameManagerImpl implements GameManager {
@@ -13,7 +14,6 @@ public class GameManagerImpl implements GameManager {
 
     //Initialize the hashmap(key: string; value: Usuario) of users
     private HashMap<String, Usuario> usuarios;
-    private List<Usuario> listaUsuarios;
 
     private GameManagerImpl(){
         usuarios = new HashMap<>();
@@ -24,54 +24,50 @@ public class GameManagerImpl implements GameManager {
         return instance;
     }
 
-    public void addUser(String name, String surname){
-        usuarios.put(name, new Usuario(name, surname));
-        listaUsuarios.add(new Usuario(name, surname));
-    }
 
-
-    public int size(){
-        log.info("Tamaño: " + this.usuarios.size());
-        return this.usuarios.size();
+    public void addUser(Usuario u){
+        usuarios.put(u.getId(), new Usuario(u.getName(), u.getSurname()));
+        log.info("Usuario añadido: " + this.usuarios.get(u.getId()));
     }
 
     @Override
     public List<Usuario> getAllUsuariosSortedAlfabetically() {
         //We create a copy of the list
-        log.info("List before changes: " + this.listaUsuarios);
-        List<Usuario> ret = new ArrayList<>();
-        ret.addAll(this.listaUsuarios);
+        log.info("List before changes: " + this.usuarios);
+        List<Usuario> res = new LinkedList<>();;
+        ArrayList<Usuario> jugadores_arr = new ArrayList<Usuario>(this.usuarios.values());
 
+        for (int i = 0; i < jugadores_arr.size(); i++) {
+            res.add(jugadores_arr.get(i));
+        }
         //We have to tell to the sort method, which criteria we want to apply
-        Collections.sort(ret, new Comparator<Usuario>() {
+        Collections.sort(res, new Comparator<Usuario>() {
             @Override
             public int compare(Usuario o1, Usuario o2) {
                 //Ascending order
                 return (int)(o1.getSurname().compareTo(o2.getSurname()));
             }
         });
-        log.info("List after changes: " + ret);
-        return ret;
+        log.info("List after changes: " + res);
+        return res;
     }
 
 
     @Override
     public void updateUsuario(Usuario user) {
-        HashMap<String, Usuario> ret = new HashMap<>();
-        for (Usuario u:
-             this.listaUsuarios) {
-            if(u.getId() == user.getId()){
-                log.info("Antes de actualizar usuario: " + u);
-                u = user;
-                log.info("Despues de actualizar usuario: " + u);
-            }
-        }
-
+        log.info("Antes de actualizar usuario: " + this.usuarios.get(user.getId()));
+        this.usuarios.remove(user.getId());
+        this.addUser(user);
+        log.info("Despues de actualizar usuario: " + this.usuarios.get(user.getId()));
     }
 
     @Override
-    public String getUsuarioInfo(Usuario user) {
-        String info = "Nombre: " + user.getName() + " Apellido: " + user.getSurname() + " id: " + user.getId();
+    public String[] getUsuarioInfo(Usuario user) {
+        String[] info = new String[3];
+        info[0] = "Nombre: " + user.getName();
+        info[1] = " Apellido: " + user.getSurname();
+        info[2] = " id: " + user.getId();
+        log.info("Información obtenida: " + info);
         return info;
     }
 
@@ -85,14 +81,14 @@ public class GameManagerImpl implements GameManager {
 
     @Override
     public void addObject(Usuario user, Objeto objeto) {
-        log.info("Se ha añadido el objeto" + objeto);
         user.addObjeto(objeto);
+        log.info("Se ha añadido el objeto" + objeto);
     }
 
     @Override
-    public int getNumUsuarios(HashMap users) {
-        log.info("Numero de usuarios: " + users.size());
-        return users.size();
+    public int getNumUsuarios() {
+        log.info("Numero de usuarios: " + this.usuarios.size());
+        return this.usuarios.size();
     }
 
     @Override

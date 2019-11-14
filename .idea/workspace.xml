@@ -3,6 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="2e9a3cb3-30d0-4c35-9c39-f82558e64da8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/GameManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/UserNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/UserNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/services/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/services/OrdersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/upc/eetac/dsa/util/RandomUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/upc/eetac/dsa/UsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/upc/eetac/dsa/UsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/Pedido.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/ProductManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/services/OrdersService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/edu/upc/eetac/dsa/services/TextService.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +37,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542043105234" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../rest-example" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -66,7 +77,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.UsuarioTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="edu.upc.eetac.dsa.Main" />
       <module name="Minimo1" />
@@ -107,13 +118,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UsuarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Minimo1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.upc.eetac.dsa.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="edu.upc.eetac.dsa" />
+      <option name="MAIN_CLASS_NAME" value="edu.upc.eetac.dsa.UsuarioTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.TextServiceTest" />
       <item itemvalue="JUnit.OrderTest" />
+      <item itemvalue="JUnit.UsuarioTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UsuarioTest" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.OrderTest" />
         <item itemvalue="JUnit.TextServiceTest" />
@@ -134,7 +162,8 @@
       <workItem from="1573640131064" duration="610000" />
       <workItem from="1573672977026" duration="185000" />
       <workItem from="1573678476876" duration="100000" />
-      <workItem from="1573726435426" duration="9737000" />
+      <workItem from="1573726435426" duration="9907000" />
+      <workItem from="1573751349991" duration="9546000" />
     </task>
     <task id="LOCAL-00001" summary="Minimo1">
       <created>1573735952100</created>
@@ -143,40 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1573735952101</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Minimo1">
+      <created>1573736353791</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1573736353791</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
-  </component>
-  <component name="TestHistory">
-    <history-entry file="OrderTest - 2018.11.12 at 13h 08m 45s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 11m 01s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 14m 26s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 27m 54s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 28m 05s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 28m 59s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 13h 32m 08s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 16h 38m 46s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 16h 39m 09s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="OrderTest - 2018.11.12 at 16h 40m 24s.xml">
-      <configuration name="OrderTest" configurationId="JUnit" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

@@ -21,35 +21,25 @@ public class OrdersService {
 
     final static Logger log = Logger.getLogger(OrdersService.class.getName());
 
-    private ProductManager pm;
+    private GameManager gm;
 
     public OrdersService() {
-        this.pm = ProductManagerImpl.getInstance();
-        if(pm.size()==0){
-            Producto producto1 = new Producto("Manzana",1.5);
-            Producto producto2 = new Producto("Pastel",10);
-            Producto producto3 = new Producto("Cerveza",2.5);
-            Producto producto4 = new Producto("Calamares",5);
-            pm.addProducto(producto1);
-            pm.addProducto(producto2);
-            pm.addProducto(producto3);
-            pm.addProducto(producto4);
-            pm.addUser("Pepe");
+        this.gm = GameManagerImpl.getInstance();
+        if(gm.getNumUsuarios() == 0){
+            Objeto producto1 = new Objeto("Manzana",1.5);
+            Objeto producto2 = new Objeto("Pastel",10);
+            Objeto producto3 = new Objeto("Cerveza",2.5);
+            Objeto producto4 = new Objeto("Calamares",5);
+            Usuario user = new Usuario("Pepe", "Bichuela");
+            String id = user.getId();
+            //user.addObjeto(producto1);
+            gm.addUser(new Usuario("Pepe", "Bichuela"));
+
+            gm.addObject(gm.getUsuarios().get(id), producto1);
+            gm.addObject(gm.getUsuarios().get(id), producto2);
+            gm.addObject(gm.getUsuarios().get(id), producto3);
+            gm.addObject(gm.getUsuarios().get(id), producto4);
         }
-    }
-
-    @GET
-    @ApiOperation(value = "get all products in the list", notes = "x")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Producto.class, responseContainer = "List of Products")
-    })
-    @Path("/products")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllProducts() {
-        List<Producto> productos  = this.pm.allProducts();
-
-        GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productos){};
-        return Response.status(201).entity(entity).build();
     }
 
     @GET
@@ -60,26 +50,26 @@ public class OrdersService {
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        HashMap<String, Usuario> users  = this.pm.allUsers();
+        HashMap<String, Usuario> users  = this.gm.getUsuarios();
 
         GenericEntity<HashMap<String, Usuario>> entity = new GenericEntity<HashMap<String, Usuario>>(users){};
         return Response.status(201).entity(entity).build();
     }
 
     @GET
-    @ApiOperation(value = "get all orders of a user", notes = "x")
+    @ApiOperation(value = "get all objects of a user", notes = "x")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Pedido.class, responseContainer = "List of Orders"),
+            @ApiResponse(code = 201, message = "Successful", response = Objeto.class, responseContainer = "List of Objects"),
             @ApiResponse(code = 404, message = "User not found")
     })
     @Path("/{user}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrders(@PathParam("user") String user) {
-        List<Pedido> pedidos;
+    public Response getObjects(@PathParam("user") String id) {
+        List<Objeto> objetos;
         try {
-            pedidos = this.pm.getAllOrdersOfAUser(user);
-            log.info("Pedido: " +pedidos);
-            GenericEntity<List<Pedido>> entity = new GenericEntity<List<Pedido>>(pedidos){};
+            objetos = this.gm.getUsuarioObjetos(this.gm.getUsuarios().get(id));
+            log.info("Objetos: " +objetos);
+            GenericEntity<List<Objeto>> entity = new GenericEntity<List<Objeto>>(objetos){};
             return Response.status(201).entity(entity).build();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
@@ -87,33 +77,9 @@ public class OrdersService {
         }
     }
 
-    @GET
-    @ApiOperation(value = "get all products sorted by price", notes = "x")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Producto.class, responseContainer = "List of Products")
-    })
-    @Path("/sortedbyprice")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getProductsSortedByPrice() {
-        List<Producto> productos  = this.pm.getAllProductsSortedByPrice();
 
-        GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productos){};
-        return Response.status(201).entity(entity).build();
-    }
 
-    @GET
-    @ApiOperation(value = "get all products sorted by number of sales", notes = "x")
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = Producto.class, responseContainer = "List of Products")
-    })
-    @Path("/sortedbysales")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getOrders() {
-        List<Producto> productos  = this.pm.getAllProductsSortedByNumberOfSales();
 
-        GenericEntity<List<Producto>> entity = new GenericEntity<List<Producto>>(productos){};
-        return Response.status(201).entity(entity).build();
-    }
 
     @POST
     @ApiOperation(value = "place an Order", notes = "x")
@@ -121,14 +87,14 @@ public class OrdersService {
             @ApiResponse(code = 201, message = "Successful"),
             @ApiResponse(code = 404, message = "User not found")
     })
-    @Path("/placeanorder")
+    @Path("/inventaObjeto")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response placeAnOrder(Pedido p) throws ProductNotFoundException {
 
         String userName = p.getUser().getUsername();
 
         try {
-            this.pm.placeAnOrder(userName, p);
+            this.gm.placeAnOrder(userName, p);
             return Response.status(201).build();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
@@ -144,7 +110,7 @@ public class OrdersService {
     @Path("/serveanorder")
     @Produces(MediaType.APPLICATION_JSON)
     public Response serveAnOrder(){
-        Pedido pedido = this.pm.serveAnOrder();
+        Pedido pedido = this.gm.serveAnOrder();
 
         return Response.status(201).entity(pedido).build();
     }
@@ -157,7 +123,7 @@ public class OrdersService {
     @Path("/addproduct")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addProduct(Producto p){
-        pm.addProducto(p);
+        gm.addProducto(p);
 
         return Response.status(201).build();
     }
@@ -170,7 +136,7 @@ public class OrdersService {
     @Path("/adduser/{user}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addProduct(@PathParam("user") String u){
-        pm.addUser(u);
+        gm.addUser(u);
 
         return Response.status(201).build();
     }

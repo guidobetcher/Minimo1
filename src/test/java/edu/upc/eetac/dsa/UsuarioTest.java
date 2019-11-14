@@ -29,19 +29,7 @@ public class UsuarioTest {
         pm = GameManagerImpl.getInstance();
         lo = new ArrayList<>();
 
-        //Create the list of users
-        pm.addUser("Pepe", "Garcia");
-        pm.addUser("Juan", "Fernandez");
-        pm.addUser("Carla", "Bruni");
-        pm.addUser("Paula", "Hernan");
 
-        //We create the products
-        objeto1 = new Objeto("Manzana",1.5);
-        objeto2 = new Objeto("Pastel",10);
-        objeto3 = new Objeto("Cerveza",2.5);
-        objeto4 = new Objeto("Calamares",5);
-        objeto5 = new Objeto("Chocolate", 3.2);
-        lo.add(objeto1);
     }
 
     //When the test ends, it's properly to erase the contents added in @Before
@@ -50,21 +38,35 @@ public class UsuarioTest {
         pm = null;
     }
 
-    @Test
-    public void getAllUsuariosSortedAlfabetically(){
-        List<Usuario> ret = this.pm.getAllUsuariosSortedAlfabetically();
 
-        assertEquals(ret.get(3).name, "Calamares", "Calamares");
-        assertEquals(ret.get(1).name, "Cerveza", "Cerveza");
-        assertEquals(ret.get(2).name, "Chocolate", "Chocolate");
-        assertEquals(ret.get(0).name, "Manzana", "Manzana");
-        assertEquals(ret.get(4).name, "Pastel", "Pastel");
+    @Test
+    public void addUser(){
+        pm.addUser(new Usuario("Pepe", "Garcia"));
+        pm.addUser(new Usuario("Juan", "Fernandez"));
+        pm.addUser(new Usuario("Carla", "Bruni"));
+        pm.addUser(new Usuario("Paula", "Hernan"));
+        int num = this.pm.getNumUsuarios();
+
+        assertEquals(num, 4, 4);
 
     }
 
     @Test
-    public void addUser(){
-        usuarios = this.pm.getUsuarios();
+    public void addObject(){
+        Usuario joseph = new Usuario("Joseph", "Pamlona");
+        String id = joseph.getId();
+        this.pm.addObject(joseph, new Objeto("portatil",2));
+
+        pm.addUser(joseph);
+        int num = this.pm.getNumObjetos(this.pm.getUsuarios().get(id));
+
+        assertEquals(num, 1, 1);
+
+    }
+
+    @Test
+    public void getAllUsuariosSortedAlfabetically(){
+        List<Usuario> ret = this.pm.getAllUsuariosSortedAlfabetically();
 
         assertEquals(ret.get(3).name, "Calamares", "Calamares");
         assertEquals(ret.get(1).name, "Cerveza", "Cerveza");

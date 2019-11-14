@@ -1,11 +1,11 @@
 package edu.upc.eetac.dsa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import edu.upc.eetac.dsa.util.RandomUtils;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class Usuario {
     //Attributes
@@ -22,10 +22,10 @@ public class Usuario {
 
     //In the constructor we only pass the username value, not the LinkedList getPedidos
     public Usuario(String name, String surname) {
-        this.id = RandomUtils.getId();
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.surname = surname;
-        this.objetos = null;
+        this.objetos = new LinkedList<>();;
     }
     public  String getId() {return this.id;}
 
@@ -55,4 +55,6 @@ public class Usuario {
     public void addObjeto(Objeto o) {
         this.objetos.add(o);
     }
+
+    public String toString() {return this.name;};
 }
