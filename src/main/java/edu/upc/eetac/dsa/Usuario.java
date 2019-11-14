@@ -1,55 +1,58 @@
 package edu.upc.eetac.dsa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import edu.upc.eetac.dsa.util.RandomUtils;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Usuario {
     //Attributes
-    String username;
+    String id;
+    String name;
+    String surname;
+
 
     @JsonIgnore
     @ApiModelProperty(hidden = true)
-    LinkedList<Pedido> pedidos;
+    List<Objeto> objetos;
 
-    public Usuario() {
 
-    }
 
     //In the constructor we only pass the username value, not the LinkedList getPedidos
-    public Usuario(String username) {
-        this.username = username;
-        this.pedidos = new LinkedList<>();
+    public Usuario(String name, String surname) {
+        this.id = RandomUtils.getId();
+        this.name = name;
+        this.surname = surname;
+        this.objetos = null;
+    }
+    public  String getId() {return this.id;}
+
+    public String getName() {
+        return this.name;
     }
 
-    public String getUsername() {
-        return username;
+    public  String getSurname(){ return this.surname;}
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public LinkedList<Pedido> getPedidos() {
-        return this.pedidos;
+    public List<Objeto> getObjetos() {
+        return this.objetos;
     }
 
-    public void setPedidos(LinkedList<Pedido> p) {
-        this.pedidos = p;
+    public void setObjetos(List<Objeto> o) {
+        this.objetos = o;
     }
 
     //We add addOrder function in Usuario, because we need to know which order has the user made to serveAnOrder
-    public void addOrder(Pedido p) {
-        this.pedidos.add(p);
-    }
-
-    @Override
-    public String toString() {
-        String s = "";
-        for (int i = 0; i < this.pedidos.size(); i++)
-            s = "Producto [Name = " + pedidos.get(0).products.get(i).producto + ", Quantity = " + pedidos.get(0).products.get(i).q + "]";
-
-        return s;
+    public void addObjeto(Objeto o) {
+        this.objetos.add(o);
     }
 }
