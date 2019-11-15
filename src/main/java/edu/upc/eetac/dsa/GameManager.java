@@ -8,7 +8,7 @@ public interface GameManager {
 
     List<Usuario> getAllUsuariosSortedAlfabetically();
     void addUser(Usuario u);
-    void updateUsuario(Usuario user);
+    int updateUsuario(Usuario user);
     String[] getUsuarioInfo(Usuario user);
     List<Objeto> getUsuarioObjetos(Usuario user);
     void addObject(Usuario user, Objeto objeto);

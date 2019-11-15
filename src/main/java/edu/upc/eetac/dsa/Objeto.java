@@ -8,4 +8,5 @@ public class Objeto {
         this.nombre = nombre;
         this.peso = peso;
     }
+    public String toString() {return this.nombre;};
 }

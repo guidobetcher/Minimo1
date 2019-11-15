@@ -26,20 +26,21 @@ public class GameManagerImpl implements GameManager {
 
 
     public void addUser(Usuario u){
-        usuarios.put(u.getId(), new Usuario(u.getName(), u.getSurname()));
+        usuarios.put(u.getId(), u);
         log.info("Usuario añadido: " + this.usuarios.get(u.getId()));
     }
 
     @Override
     public List<Usuario> getAllUsuariosSortedAlfabetically() {
         //We create a copy of the list
-        log.info("List before changes: " + this.usuarios);
+
         List<Usuario> res = new LinkedList<>();;
         ArrayList<Usuario> jugadores_arr = new ArrayList<Usuario>(this.usuarios.values());
 
         for (int i = 0; i < jugadores_arr.size(); i++) {
             res.add(jugadores_arr.get(i));
         }
+        log.info("List before changes: " + res);
         //We have to tell to the sort method, which criteria we want to apply
         Collections.sort(res, new Comparator<Usuario>() {
             @Override
@@ -54,11 +55,19 @@ public class GameManagerImpl implements GameManager {
 
 
     @Override
-    public void updateUsuario(Usuario user) {
+    public int updateUsuario(Usuario user) {
         log.info("Antes de actualizar usuario: " + this.usuarios.get(user.getId()));
-        this.usuarios.remove(user.getId());
-        this.addUser(user);
+        Usuario result = this.usuarios.replace(user.getId(), user);
+        int res;
+        if (result != null) {
+            log.info("Usuario actualizado: ");
+            res = 1;
+        } else {
+            log.info("Specified user not found");
+            res = -1;
+        }
         log.info("Despues de actualizar usuario: " + this.usuarios.get(user.getId()));
+        return res;
     }
 
     @Override
@@ -82,7 +91,7 @@ public class GameManagerImpl implements GameManager {
     @Override
     public void addObject(Usuario user, Objeto objeto) {
         user.addObjeto(objeto);
-        log.info("Se ha añadido el objeto" + objeto);
+        log.info("Se ha añadido el objeto: " + objeto);
     }
 
     @Override
@@ -93,7 +102,7 @@ public class GameManagerImpl implements GameManager {
 
     @Override
     public int getNumObjetos(Usuario user) {
-        log.info("Numero de Objetos en el usuario: " + user + user.getObjetos().size());
+        log.info("Numero de Objetos en el usuario " + user.getName() + user.getSurname() + ": " + user.getObjetos().size());
         return user.getObjetos().size();
     }
 

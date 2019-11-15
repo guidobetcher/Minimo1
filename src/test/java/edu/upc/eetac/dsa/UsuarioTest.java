@@ -24,11 +24,15 @@ public class UsuarioTest {
 
     //Before the tests we have to add Users and some orders
     @BeforeClass
-    public static void setUp(){
+    public static void setUp() throws Exception{
         //Because ProductManagerImpl implements ProductManager, we can create on top of pm, new ProductManagerImpl
         pm = GameManagerImpl.getInstance();
         lo = new ArrayList<>();
 
+        pm.addUser(new Usuario("Pepe", "Garcia"));
+        pm.addUser(new Usuario("Juan", "Fernandez"));
+        pm.addUser(new Usuario("Carla", "Bruni"));
+        pm.addUser(new Usuario("Paula", "Hernan"));
 
     }
 
@@ -41,24 +45,20 @@ public class UsuarioTest {
 
     @Test
     public void addUser(){
-        pm.addUser(new Usuario("Pepe", "Garcia"));
-        pm.addUser(new Usuario("Juan", "Fernandez"));
-        pm.addUser(new Usuario("Carla", "Bruni"));
-        pm.addUser(new Usuario("Paula", "Hernan"));
         int num = this.pm.getNumUsuarios();
 
-        assertEquals(num, 4, 4);
+        assertEquals(num, 4, 1);
 
     }
 
     @Test
     public void addObject(){
-        Usuario joseph = new Usuario("Joseph", "Pamlona");
+        Usuario joseph = new Usuario("Joseph", "Pamplona");
         String id = joseph.getId();
         this.pm.addObject(joseph, new Objeto("portatil",2));
 
         pm.addUser(joseph);
-        int num = this.pm.getNumObjetos(this.pm.getUsuarios().get(id));
+        int num = this.pm.getNumObjetos(joseph);
 
         assertEquals(num, 1, 1);
 
@@ -68,11 +68,10 @@ public class UsuarioTest {
     public void getAllUsuariosSortedAlfabetically(){
         List<Usuario> ret = this.pm.getAllUsuariosSortedAlfabetically();
 
-        assertEquals(ret.get(3).name, "Calamares", "Calamares");
-        assertEquals(ret.get(1).name, "Cerveza", "Cerveza");
-        assertEquals(ret.get(2).name, "Chocolate", "Chocolate");
-        assertEquals(ret.get(0).name, "Manzana", "Manzana");
-        assertEquals(ret.get(4).name, "Pastel", "Pastel");
+        assertEquals(ret.get(3).name, "Paula");
+        assertEquals(ret.get(2).name, "Pepe");
+        assertEquals(ret.get(1).name, "Juan");
+        assertEquals(ret.get(0).name, "Carla");
 
     }
 }
